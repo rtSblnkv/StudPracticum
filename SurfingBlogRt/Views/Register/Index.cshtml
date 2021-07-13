@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "Регистрация";
+}
+@model UserViewModel
+
+@if (true)
+{
+<form style=" border: 1px solid black; background-color:cornsilk;" asp-controller="Register" asp-action="CreateUser"
+      method="post" enctype="multipart/form-data">
+    <span style=" border: 1px solid black; background-color:grey;">Регистрация нового пользователя</span>
+    <div>
+        <div>
+            <label asp-for="Nickname"></label>
+            <input type="password" asp-for="Nickname" />
+            <span asp-validation-for="Nickname"></span>
+        </div>
+        <div>
+            <label asp-for="Email"></label>
+            <input type="password" placeholder="example@mail.com" asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label>
+            <input type="password" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="ConfirmPassword"></label>
+            <input type="password" asp-for="ConfirmPassword" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="LastName"></label>
+            <input type="password" asp-for="ConfirmPassword" />
+        </div>
+        <div>
+            <label asp-for="FirstName"></label>
+            <input type="password" asp-for="FirstName" />
+        </div>
+        <input type="file"
+               accept=".jpg,.jpeg,.png"
+               class="hidden"
+               name="imageData" />
+        <input type="submit" value="Прикрепить" />
+    </div>
+
+    <div>
+        <label asp-for="Photo"></label>
+        <input type="password" asp-for="Photo" />
+    </div>
+    <div>
+        <label asp-for="Contacts"></label>
+        <input type="password" asp-for="Contacts" />
+    </div>
+    <div>
+        <label asp-for="AboutMe"></label>
+        <input type="password" asp-for="AboutMe" />
+    </div>
+    <div>
+        <label asp-for="Achievements"></label>
+        <input type="password" asp-for="Achievements" />
+    </div>
+    <div>
+        <h6 style="text-decoration-color:grey"> *-поля, обязательные для заполнения </h6>
+        <input type="submit" value="Зарегистрироваться"/>
+    </div>
+</form>
+<div>
+    <h6 style="text-decoration-color:grey"> Уже есть аккаунт? </h6>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Войти</a>
+</div>
+
+}
+
+
+
