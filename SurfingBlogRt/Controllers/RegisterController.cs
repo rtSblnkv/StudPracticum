@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SurfingBlogRt.DAL;
+using SurfingBlogRt.Helpers;
 using SurfingBlogRt.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,60 +22,46 @@ namespace SurfingBlogRt.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("CreateUser")]
-        public async Task<IActionResult> AddNewUser(UserViewModel uvModel)
+        public async Task<IActionResult> CreateUser(UserViewModel uvModel,IFormFile imageData)
         {
             var context = new DataContext();
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if (uvModel.Password == uvModel.ConfirmPassword)
+                Guid? img = Guid.Empty;
+
+                if (imageData != null)
                 {
-
+                    var extension = Path.GetExtension(imageData.FileName);
+                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                    {
+                        ModelState.AddModelError("", "Недопустимый формат изображения");
+                    }
                 }
-                else ModelState.AddModelError("", "Пароли не совпадают.Попробуйте ещё раз.");
-            }
-            else ModelState.AddModelError("",)
 
-           
+                var helper = new ImageHelper();
 
-            if (string.IsNullOrEmpty(news.Text)
-                && imageData == null)
-            {
-                ViewBag.Posts = context.News
-                    .Include(n => n.Author)
-                    .OrderByDescending(n => n.CreateDate)
-                    .ToList();
-                return View("Index", news);
-            }
+                img = await helper.UploadImage(imageData);
 
-            if (imageData != null)
-            {
-                var extension = Path.GetExtension(imageData.FileName);
-                if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                var user = new User()
                 {
-                    ViewBag.FileError = true;
-                    ViewBag.Posts = context.News
-                    .Include(n => n.Author)
-                    .OrderByDescending(n => n.CreateDate)
-                    .ToList();
-                    return View("Index", news);
-                }
+                    Nickname = uvModel.Nickname,
+                    Password = uvModel.Password,
+                    Email = uvModel.Email,
+                    LastName = uvModel.LastName,
+                    FirstName = uvModel.FirstName,
+                    Photo = uvModel.Photo,
+                    Contacts = uvModel.Contacts,
+                    AboutMe = uvModel.AboutMe,
+                    Achievements = uvModel.Achievements
+                };
+                context.Users.Add(user);
+                context.SaveChanges();
             }
-
-            news.AuthorId = 1;
-            news.CreateDate = DateTime.Now;
-
-            var helper = new ImageHelper();
-            news.Image = await helper.UploadImage(imageData);
+            else ModelState.AddModelError("", "Проверьте корректность введённых данных.");
 
 
-            context.News.Add(news);
-            context.SaveChanges();
 
-            ViewBag.Posts = context.News
-                   .Include(n => n.Author)
-                   .OrderByDescending(n => n.CreateDate)
-                   .ToList();
-            return View("Index", news);
+            return View("Index");
         }
     }
 }

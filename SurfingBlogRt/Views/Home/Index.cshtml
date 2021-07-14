@@ -1,55 +1,55 @@
 ﻿@{
     ViewData["Title"] = "Лента новостей";
 }
-@model News 
+@model News
 
- @if (true)
-           {
-                <form style=" border: 1px solid black; background-color:cornsilk;"asp-controller="Home" asp-action="AddNewPost"
-                      method="post" enctype="multipart/form-data">
-                    <span style=" border: 1px solid black; background-color:grey;">Добавление новой записи</span>
-                    <div>
-                        <label>Введите текст</label>
-                        <div>
-                            <textarea asp-for="Text"> </textarea>
-                        </div>                 
-                    </div>
-                    <div>
-                        <input type="file"
-                               accept=".jpg,.jpeg,.png"
-                               class="hidden"
-                               name="imagedata" />
-                        <input type="submit" />
-                    </div>  
-                </form>
-            }
-    <div>
-        @foreach (News post in ViewBag.Posts)
-        {
-            <div style=" border: 1px solid black">
-                <img src="~/img/avatar.jpg" height="30"
-                     style="border-radius: 10px" />
-                <label>@post.Author.Nickname</label>
-                <label>@post.CreateDateLabel</label>          
-                <div>
-                    <div>
-                        @if (!string.IsNullOrEmpty(post.Text))
-                        {
-                            <label>@post.Text</label>
-                        }
-                    </div>
-                   
-                    @if (post.Image.HasValue && Guid.Empty != post.Image.Value)
-                    {
-                        var photoUrl = SurfingBlogRt.Helpers.ImageHelper.GetUrl(post.Image);
-                        @if (photoUrl != null)
-                        {
-                            <img src="@Url.Content(photoUrl)" width="100" height="100"/>
-                        }
-                    }
-
-                </div>              
+@if (User.Identity.IsAuthenticated)
+{
+    <form style=" border: 1px solid black; background-color:cornsilk;" asp-controller="Home" asp-action="AddNewPost"
+          method="post" enctype="multipart/form-data">
+        <span style=" border: 1px solid black; background-color:grey;">Добавление новой записи</span>
+        <div>
+            <label>Введите текст</label>
+            <div>
+                <textarea asp-for="Text"> </textarea>
             </div>
-        }
-    </div>
+        </div>
+        <div>
+            <input type="file"
+                   accept=".jpg,.jpeg,.png"
+                   class="hidden"
+                   name="imagedata" />
+            <input type="submit" />
+        </div>
+    </form>
+}
+<div>
+    @foreach (News post in ViewBag.Posts)
+    {
+        <div style=" border: 1px solid black">
+            <img src="~/img/avatar.jpg" height="30"
+                 style="border-radius: 10px" />
+            <label>@post.Author.Nickname</label>
+            <label>@post.CreateDateLabel</label>
+            <div>
+                <div>
+                    @if (!string.IsNullOrEmpty(post.Text))
+                    {
+                        <label>@post.Text</label>
+                    }
+                </div>
+
+                @if (post.Image.HasValue && Guid.Empty != post.Image.Value)
+                {
+                    var photoUrl = SurfingBlogRt.Helpers.ImageHelper.GetUrl(post.Image);
+                    @if (photoUrl != null)
+                    {
+                        <img src="@Url.Content(photoUrl)" width="100" height="100" />
+                    }
+                }
+
+            </div>
+        </div>
+    }
+</div>
 
