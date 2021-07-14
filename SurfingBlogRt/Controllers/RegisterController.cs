@@ -23,10 +23,25 @@ namespace SurfingBlogRt.Controllers
         [ValidateAntiForgeryToken]
         [Route("CreateUser")]
         public async Task<IActionResult> CreateUser(UserViewModel uvModel,IFormFile imageData)
-        {
+        {         
             var context = new DataContext();
+
             if (ModelState.IsValid)
             {
+                var mailIsTaken = context.News.Any(x => x.Email = uvModel.Email);
+
+                if(mailIsTaken)
+                {
+                    ModelState.AddModelError(nameof(uvModel.Email), "Такая почта уже зарегистрирована");
+                }
+                var nicknameIsTaken = context.News.Any(x => x.NickName == uvModel.Nickname);
+
+                if (nicknameIsTaken)
+                {
+                    ModelState.AddModelError(nameof(uvModel.Nickname), "Такой псевдоним уже занят");
+                }
+
+
                 Guid? img = Guid.Empty;
 
                 if (imageData != null)

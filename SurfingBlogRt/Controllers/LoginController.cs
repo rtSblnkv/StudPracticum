@@ -1,15 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SurfingBlogRt.DAL;
+﻿using SurfingBlogRt.DAL;
 using SurfingBlogRt.Helpers;
 using SurfingBlogRt.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SurfingBlogRt.Controllers
 {

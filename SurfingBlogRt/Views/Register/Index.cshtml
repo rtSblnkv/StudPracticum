@@ -11,12 +11,12 @@
     <div>
         <div>
             <label asp-for="Nickname"></label>
-            <input type="password" asp-for="Nickname" />
+            <input type="text" asp-for="Nickname" />
             <span asp-validation-for="Nickname"></span>
         </div>
         <div>
             <label asp-for="Email"></label>
-            <input type="password" placeholder="example@mail.com" asp-for="Email" />
+            <input type="text" placeholder="example@mail.com" asp-for="Email" />
             <span asp-validation-for="Email"></span>
         </div>
         <div>
@@ -27,11 +27,10 @@
         <div>
             <label asp-for="ConfirmPassword"></label>
             <input type="password" asp-for="ConfirmPassword" />
-            <span asp-validation-for="Password"></span>
         </div>
         <div>
             <label asp-for="LastName"></label>
-            <input type="password" asp-for="ConfirmPassword" />
+            <input type="password" asp-for="LastName" />
         </div>
         <div>
             <label asp-for="FirstName"></label>
@@ -46,28 +45,29 @@
 
     <div>
         <label asp-for="Photo"></label>
-        <input type="password" asp-for="Photo" />
+        <input type="text" asp-for="Photo" />
     </div>
     <div>
         <label asp-for="Contacts"></label>
-        <input type="password" asp-for="Contacts" />
+        <input type="text" asp-for="Contacts" />
     </div>
     <div>
         <label asp-for="AboutMe"></label>
-        <input type="password" asp-for="AboutMe" />
+        <input type="text" asp-for="AboutMe" />
     </div>
     <div>
         <label asp-for="Achievements"></label>
-        <input type="password" asp-for="Achievements" />
+        <input type="text" asp-for="Achievements" />
     </div>
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
     <div>
         <h6 style="text-decoration-color:grey"> *-поля, обязательные для заполнения </h6>
-        <input type="submit" value="Зарегистрироваться"/>
+        <input type="submit" value="Зарегистрироваться" />
     </div>
 </form>
 <div>
     <h6 style="text-decoration-color:grey"> Уже есть аккаунт? </h6>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Войти</a>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Войти</a>
 </div>
 
 
