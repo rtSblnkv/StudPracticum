@@ -11,12 +11,36 @@ namespace SurfingBlogRt.Helpers
     {
         public static string GetUrl(Guid? guid)
         {
+            if (!guid.HasValue)
+            {
+                return null;
+            }
+            return GetUrl(guid.Value);
+        }
+
+        public static string GetUrl(string photo)
+        {
+            if (string.IsNullOrEmpty(photo))
+            {
+                return null;
+            }
+            var result = Guid.TryParse(photo, out var guid);
+            if (!result)
+            {
+                return null;
+            }
+            return GetUrl(guid);
+        }
+
+        private static string GetUrl(Guid guid)
+        {
             if (guid == Guid.Empty)
             {
                 return null;
             }
             return string.Format("~/img/Uploads/{0}.jpg", guid);
         }
+
 
         public async Task<Guid?> UploadImage(IFormFile imageData)
         {
@@ -26,7 +50,7 @@ namespace SurfingBlogRt.Helpers
                 result = Guid.NewGuid();
                 var fileName = $"{result}.jpg";
 
-                var filePath = Path.Combine("img/Uploads", fileName);
+                var filePath = Path.Combine("wwwroot/img/Uploads", fileName);
 
                 using (var fileSteam = new FileStream(filePath, FileMode.Create))
                 {

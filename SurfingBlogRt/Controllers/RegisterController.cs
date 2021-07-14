@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SurfingBlogRt.Controllers
 {
-    public class RegisterController
+    public class RegisterController:Controller
     {
         public IActionResult Index()
         {

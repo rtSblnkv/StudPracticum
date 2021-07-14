@@ -36,7 +36,7 @@ namespace SurfingBlogRt.Models
         public string FirstName { get; set; }
 
         [Display(Name = "Выберите фото")]
-        public Guid Photo { get; set; }
+        public Guid? Photo { get; set; }
 
         [Display(Name = "Контактная информация")]
         [MaxLength(500)]
