@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace SurfingBlogRt.Controllers
 {
-    public class UserController : Controller
+    public class LoginController : Controller
     {
         private DataContext _dataContext = new DataContext();
 
-        public UserController()
+        public LoginController()
         {
         }
 

@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Вход в систему";
+}
+@model LoginViewModel
+
+<form style=" border: 1px solid black; background-color:cornsilk;border-radius: 10px" asp-controller="User" asp-action="Login"
+      method="post" enctype="multipart/form-data">
+    <span style=" border: 1px solid black; background-color:grey;">Войдите в систему</span>
+    <div>
+        <div class="nicknameField">
+            <label asp-for="Nickname"></label>
+            <input type="password" asp-for="Nickname" />
+            <span asp-validation-for="Nickname"></span>
+        </div>
+        <div class="passwordField">
+            <label asp-for="Password"></label>
+            <input type="password" asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div class="RememberMe">
+            <input type="checkbox" id="rememberMe" name="rememberMe" />
+            <label for="rememberMe">Запомнить меня</label>
+        </div>
+    </div>
+</form>
+<div>
+    <h6 style="text-decoration-color:grey"> Нет аккаунта? </h6>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="Index">Зарегистрироваться</a>
+</div>
+

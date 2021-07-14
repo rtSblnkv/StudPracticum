@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SurfingBlogRt.Models
 {
     public class LoginViewModel
     {
-        [Required]
-        [MinLength(3)]
-        [MaxLength(20)]
+        [Required(ErrorMessage = "* Поле обязательно для заполнения")]
+        [MinLength(3, ErrorMessage = "Минимальная длина пароля - 3 символа")]
+        [MaxLength(20, ErrorMessage = "Максимальная длина пароля - 20 символов")]
         [Display(Name = "Псевдоним*")]
         public string Nickname { get; set; }
 
-        [Required]
-        [MinLength(6)]
-        [MaxLength(20)]
+        [Required(ErrorMessage = "* Поле обязательно для заполнения")]
+        [MinLength(6,ErrorMessage = "Минимальная длина пароля - 6 символов")]
+        [MaxLength(20, ErrorMessage = "Максимальная длина пароля - 20 символов")]
         [Display(Name = "Пароль*")]
         public string Password { get; set; }
 
-
         [Display(Name = "Запомнить меня")]
         public bool RememberMe { get; set; }
-
     }
 }

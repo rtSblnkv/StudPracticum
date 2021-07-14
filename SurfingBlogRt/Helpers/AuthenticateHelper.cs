@@ -34,6 +34,5 @@ namespace SurfingBlogRt.Helpers
             // установка аутентификационных куки
             await httpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id), props);
         }
-
     }
 }

@@ -41,7 +41,6 @@ namespace SurfingBlogRt.Helpers
             return string.Format("~/img/Uploads/{0}.jpg", guid);
         }
 
-
         public async Task<Guid?> UploadImage(IFormFile imageData)
         {
             Guid? result = null;
@@ -59,7 +58,5 @@ namespace SurfingBlogRt.Helpers
             }
             return result;
         }
-
-
     }
 }
