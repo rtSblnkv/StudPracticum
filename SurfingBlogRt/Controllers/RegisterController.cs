@@ -28,13 +28,13 @@ namespace SurfingBlogRt.Controllers
 
             if (ModelState.IsValid)
             {
-                var mailIsTaken = context.News.Any(x => x.Email = uvModel.Email);
+                var mailIsTaken = context.Users.Any(x => x.Email == uvModel.Email);
 
                 if(mailIsTaken)
                 {
                     ModelState.AddModelError(nameof(uvModel.Email), "Такая почта уже зарегистрирована");
                 }
-                var nicknameIsTaken = context.News.Any(x => x.NickName == uvModel.Nickname);
+                var nicknameIsTaken = context.Users.Any(x => x.Nickname == uvModel.Nickname);
 
                 if (nicknameIsTaken)
                 {
