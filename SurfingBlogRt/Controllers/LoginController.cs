@@ -1,6 +1,13 @@
-﻿using SurfingBlogRt.DAL;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SurfingBlogRt.DAL;
 using SurfingBlogRt.Helpers;
 using SurfingBlogRt.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace SurfingBlogRt.Controllers
 {
@@ -30,12 +37,13 @@ namespace SurfingBlogRt.Controllers
                     .FirstOrDefaultAsync(u => u.Nickname == model.Nickname && u.Password == model.Password);
                 if (user != null)
                 {
-                    await AuthenticateHelper.Authenticate(model.Nickname, model.RememberMe, HttpContext); // аутентификация
+                    await AuthenticateHelper.Authenticate(user.Id,model.Nickname, model.RememberMe, HttpContext); // аутентификация
 
                     if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
                     {
                         HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
                     }
+                    HttpContext.Session.SetInt32("Id", user.Id);
 
                     return RedirectToAction("Index", "Home");
                 }

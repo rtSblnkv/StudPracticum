@@ -30,22 +30,17 @@
         </div>
         <div>
             <label asp-for="LastName"></label>
-            <input type="password" asp-for="LastName" />
+            <input type="text" asp-for="LastName" />
         </div>
         <div>
             <label asp-for="FirstName"></label>
-            <input type="password" asp-for="FirstName" />
+            <input type="text" asp-for="FirstName" />
         </div>
+        <label>Выберите фото</label>
         <input type="file"
                accept=".jpg,.jpeg,.png"
                class="hidden"
-               name="imageData" />
-        <input type="submit" value="Прикрепить" />
-    </div>
-
-    <div>
-        <label asp-for="Photo"></label>
-        <input type="text" asp-for="Photo" />
+               name="imageData"/>
     </div>
     <div>
         <label asp-for="Contacts"></label>
@@ -59,7 +54,7 @@
         <label asp-for="Achievements"></label>
         <input type="text" asp-for="Achievements" />
     </div>
-    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <span class="validation" asp-validation-summary="ModelOnly"></span>
     <div>
         <h6 style="text-decoration-color:grey"> *-поля, обязательные для заполнения </h6>
         <input type="submit" value="Зарегистрироваться" />

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SurfingBlogRt.Controllers
@@ -54,13 +55,23 @@ namespace SurfingBlogRt.Controllers
                 }
             }
 
-            news.AuthorId = 1;
+            var userIdString = HttpContext.User
+                .FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userIdString, out var userId))
+            {
+                ViewBag.Posts = context.News
+                    .Include(n => n.Author)
+                    .OrderByDescending(n => n.CreateDate)
+                    .ToList();
+                return View("Index", news);
+            }
+
+            news.AuthorId = userId;
             news.CreateDate = DateTime.Now;
 
             var helper = new ImageHelper();
             news.Image = await helper.UploadImage(imageData);
-
-            
+       
             context.News.Add(news);
             context.SaveChanges();
 
@@ -70,8 +81,6 @@ namespace SurfingBlogRt.Controllers
                    .ToList();
             return View("Index", news);
         }
-
-
 
         public IActionResult Index()
         {
@@ -87,6 +96,19 @@ namespace SurfingBlogRt.Controllers
             else
             {
                 ViewBag.Posts = news;
+            }
+
+            if(HttpContext.User.Claims.Any())
+            {
+
+                var claim = HttpContext.User.Claims.First().Value;
+
+                var user = context.Users.First(user => user.Nickname == claim);
+                if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
+                {
+                    HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
+                }
+                HttpContext.Session.SetString("Nickname", user.Nickname);
             }
             return View();
         }

@@ -10,12 +10,13 @@ namespace SurfingBlogRt.Helpers
 {
     public class AuthenticateHelper
     {
-        public static async Task Authenticate(string userName, bool rememberMe, HttpContext httpContext)
+        public static async Task Authenticate(int userId,string userName, bool rememberMe, HttpContext httpContext)
         {
             // создаем один claim
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.Name, userName)
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie",

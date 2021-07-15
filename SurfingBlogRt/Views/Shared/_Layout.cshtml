@@ -29,7 +29,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @if (User.Identity.IsAuthenticated)
+                @if (!User.Identity.IsAuthenticated)
                 {
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav flex-grow-1">
@@ -44,20 +44,21 @@
                 }
                 else
                 {
-            <div>
-                @{
-                    var userPhoto = SurfingBlogRt.Helpers.ImageHelper.GetUrl(
-                    HttpContextAccessor.HttpContext.Session.GetString("Photo"));
-                    var photo = userPhoto ?? "~/img/default_user.jpg";
-                }
-                <img src="@Url.Content(photo)" height="30" style="border-radius: 50%" />
-                <label>@User.Identity.Name</label>
+                    <div>
+                        @{
+                            var userPhoto = SurfingBlogRt.Helpers.ImageHelper.GetUrl(
+                            HttpContextAccessor.HttpContext.Session.GetString("Photo"));
+                            var photo = userPhoto ?? "~/img/default_user.jpg";
+                        }
+                        <img src="@Url.Content(photo)" height="50" width="50" style="border-radius: 65%" />
+                        <label>@User.Identity.Name</label>
+                    </div>
+                    <div>
 
-                <label>Nickname</label>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">
-                    <img src="~/img/logoLogout.png" height="30" />
-                </a>
-            </div>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">
+                            <img src="~/img/logoLogout.png" height="30" />
+                        </a>
+                    </div>
                 }
             </div>
         </nav>
@@ -71,6 +72,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

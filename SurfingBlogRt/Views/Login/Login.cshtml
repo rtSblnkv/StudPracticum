@@ -10,7 +10,7 @@
     <div>
         <div class="nicknameField">
             <label asp-for="Nickname"></label>
-            <input type="password" asp-for="Nickname" />
+            <input type="text" asp-for="Nickname" />
             <span asp-validation-for="Nickname"></span>
         </div>
         <div class="passwordField">
@@ -19,11 +19,11 @@
             <span asp-validation-for="Password"></span>
         </div>
         <div class="RememberMe">
-            <input type="checkbox" id="rememberMe" name="rememberMe" />
-            <label for="rememberMe">Запомнить меня</label>
+            <input type="checkbox" id="rememberMe" name="rememberMe" asp-for="RememberMe" />
+            <label asp-for="RememberMe"></label>
         </div>
         <div class="validation" asp-validation-summary="ModelOnly"></div>
-        <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="CreateUser">Войти</a>
+        <input type="submit" />
     </div>
 </form>
 <div>

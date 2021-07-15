@@ -10,7 +10,6 @@ namespace SurfingBlogRt.Models
     {
         [Display(Name = "Подтвердите пароль*")]
         [Required(ErrorMessage = "* Поле обязательно для заполнения")]
-        [Compare(nameof(Password),ErrorMessage = "Пароли не совпадают. Попробуйте ещё раз.")]
         public string ConfirmPassword { get; set; }
     }
 }

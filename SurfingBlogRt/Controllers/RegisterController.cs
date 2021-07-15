@@ -21,24 +21,31 @@ namespace SurfingBlogRt.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("CreateUser")]
         public async Task<IActionResult> CreateUser(UserViewModel uvModel,IFormFile imageData)
         {         
             var context = new DataContext();
 
             if (ModelState.IsValid)
             {
+                if(uvModel.Password != uvModel.ConfirmPassword)
+                {
+                    ModelState.AddModelError(nameof(uvModel.ConfirmPassword), "Пароли не совпадают");
+                    return View("Index", uvModel);
+                }
+
                 var mailIsTaken = context.Users.Any(x => x.Email == uvModel.Email);
 
                 if(mailIsTaken)
                 {
                     ModelState.AddModelError(nameof(uvModel.Email), "Такая почта уже зарегистрирована");
+                    return View("Index", uvModel);
                 }
                 var nicknameIsTaken = context.Users.Any(x => x.Nickname == uvModel.Nickname);
 
                 if (nicknameIsTaken)
                 {
                     ModelState.AddModelError(nameof(uvModel.Nickname), "Такой псевдоним уже занят");
+                    return View("Index", uvModel);
                 }
 
 
@@ -64,19 +71,28 @@ namespace SurfingBlogRt.Controllers
                     Email = uvModel.Email,
                     LastName = uvModel.LastName,
                     FirstName = uvModel.FirstName,
-                    Photo = uvModel.Photo,
+                    Photo = img,
                     Contacts = uvModel.Contacts,
                     AboutMe = uvModel.AboutMe,
                     Achievements = uvModel.Achievements
                 };
                 context.Users.Add(user);
                 context.SaveChanges();
+
+                await AuthenticateHelper.Authenticate(user.Id,user.Nickname, false, HttpContext); // аутентификация
+
+                if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
+                {
+                    HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
+                }
+                HttpContext.Session.SetInt32("Id", user.Id);
+
+                return RedirectToAction("Index", "Home");
             }
             else ModelState.AddModelError("", "Проверьте корректность введённых данных.");
 
+            return View("Index",uvModel);
 
-
-            return View("Index");
         }
     }
 }
