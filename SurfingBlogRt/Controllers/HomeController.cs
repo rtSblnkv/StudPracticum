@@ -82,13 +82,16 @@ namespace SurfingBlogRt.Controllers
             return View("Index", news);
         }
 
+
         public IActionResult Index()
         {
             var context = new DataContext();
+
             var news = context.News
                 .Include(n => n.Author)
                 .OrderByDescending(n => n.CreateDate)
                 .ToList();
+
             if(!news.Any())
             {
                 ViewBag.Posts = new List<News>();
@@ -98,18 +101,21 @@ namespace SurfingBlogRt.Controllers
                 ViewBag.Posts = news;
             }
 
-            if(HttpContext.User.Claims.Any())
+            if(HttpContext.User.Identity.IsAuthenticated)
             {
-
-                var claim = HttpContext.User.Claims.First().Value;
-
-                var user = context.Users.First(user => user.Nickname == claim);
-                if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
+                if (HttpContext.User.Claims.Any())
                 {
-                    HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
+
+                    var claim = HttpContext.User.FindFirstValue(ClaimTypes.Name);
+
+                    var user = context.Users.FirstOrDefault(user => user.Nickname == claim);
+                    if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
+                    {
+                        HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
+                    }
+                    //HttpContext.Session.SetString("Nickname", user.Nickname);
                 }
-                HttpContext.Session.SetString("Nickname", user.Nickname);
-            }
+            }          
             return View();
         }
 

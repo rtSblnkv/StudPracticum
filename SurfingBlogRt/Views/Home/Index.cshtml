@@ -27,7 +27,14 @@
     @foreach (News post in ViewBag.Posts)
     {
         <div style=" border: 1px solid black">
-           
+            @if (post.Author.Photo.HasValue && Guid.Empty != post.Author.Photo.Value)
+            {
+                <img src="@Url.Content(SurfingBlogRt.Helpers.ImageHelper.GetUrl(post.Author.Photo))" width="30" height="30" style="border-radius:50%"/>
+            }
+            else
+            {
+                <img src="~/img/defaultProfile.jpg" width="30" height="30" style="border-radius: 50%"/>
+            }
             <label>@post.Author.Nickname</label>
             <label>@post.CreateDateLabel</label>
             <div>
@@ -51,4 +58,3 @@
         </div>
     }
 </div>
-
