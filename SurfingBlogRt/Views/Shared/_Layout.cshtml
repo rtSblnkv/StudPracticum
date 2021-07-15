@@ -50,7 +50,7 @@
                             HttpContextAccessor.HttpContext.Session.GetString("Photo"));
                             var photo = userPhoto ?? "~/img/default_user.jpg";
                         }
-                        <img src="@Url.Content(photo)" height="50" width="50" style="border-radius: 65%" />
+                        <img src="@Url.Content(photo)"  class="rounded-circle" height="50" width="50" />
                         <label>@User.Identity.Name</label>
                     </div>
                     <div>
