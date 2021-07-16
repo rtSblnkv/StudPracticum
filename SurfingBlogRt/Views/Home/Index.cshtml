@@ -15,18 +15,23 @@
             </div>
         </div>
         <div>
-            <input type="file"
-                   accept=".jpg,.jpeg,.png"
-                   class="hidden"
-                   name="imagedata" />
-            <input type="submit" />
+            <div>
+                <input id="imageDataName" disabled class="form-control col-3" />
+                <label class="btn btn-primary" style="background-color:">
+                    Обзор...<input type="file" style="display: none;" id="imageData"
+                                   accept=".jpg,.jpeg,.png" name="imageData" onchange="onImageUpload()">
+                </label>
+            </div>       
+            <label class="btn btn-primary" id="save_button" style="float:right">
+                Отправить<input type="submit" style="display: none;" id="save_button" name="save_button" >
+            </label>
         </div>
     </form>
 }
 <div class="card">
     @foreach (News post in ViewBag.Posts)
     {
-    <div class="card-header bg-secondary" style=" border: 1px solid black">
+    <div class="card-header bg-secondary" style=" border: 1px solid black; background-color:cornsilk;">
         @if (post.Author.Photo.HasValue && Guid.Empty != post.Author.Photo.Value)
         {
             <img src="@Url.Content(SurfingBlogRt.Helpers.ImageHelper.GetUrl(post.Author.Photo))" class="rounded-circle" width="30" height="30" />
@@ -61,3 +66,21 @@
         
     }
 </div>
+
+<script type="text/javascript">
+    function onImageUpload() {
+        if (document.getElementById("postText").value === ""
+            && document.getElementById("imageData").value === "") {
+            document.getElementById('save_button').disabled = true;
+        } else {
+            document.getElementById('save_button').disabled = false;
+        }
+
+        if (document.getElementById('imageData')
+            && document.getElementById('imageData').files
+            && document.getElementById('imageData').files[0].name !== "") {
+            document.getElementById("imageDataName").value
+                = "...\\" + document.getElementById('imageData').files[0].name;
+        }
+    }
+</script>

@@ -36,11 +36,11 @@
             <label asp-for="FirstName"></label>
             <input type="text" asp-for="FirstName" />
         </div>
-        <label>Выберите фото</label>
-        <input type="file"
-               accept=".jpg,.jpeg,.png"
-               class="hidden"
-               name="imageData"/>
+        <input id="imageDataName" disabled class="form-control col-3" />
+        <label class="btn btn-primary">
+            Обзор...<input type="file" style="display: none;" id="imageData"
+                           accept=".jpg,.jpeg,.png" name="imageData" onchange="onImageUpload()">
+        </label>
     </div>
     <div>
         <label asp-for="Contacts"></label>
@@ -57,7 +57,7 @@
     <span class="validation" asp-validation-summary="ModelOnly"></span>
     <div>
         <h6 style="text-decoration-color:grey"> *-поля, обязательные для заполнения </h6>
-        <input type="submit" value="Зарегистрироваться" />
+        <input type="submit" id="save_button" value="Зарегистрироваться" />
     </div>
 </form>
 <div>
@@ -65,6 +65,22 @@
     <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Войти</a>
 </div>
 
+<script type="text/javascript">
+    function onImageUpload() {
+        if (document.getElementById("postText").value === ""
+            && document.getElementById("imageData").value === "") {
+            document.getElementById('save_button').disabled = true;
+        } else {
+            document.getElementById('save_button').disabled = false;
+        }
 
+        if (document.getElementById('imageData')
+            && document.getElementById('imageData').files
+            && document.getElementById('imageData').files[0].name !== "") {
+            document.getElementById("imageDataName").value
+                = "...\\" + document.getElementById('imageData').files[0].name;
+        }
+    }
+</script>
 
 
