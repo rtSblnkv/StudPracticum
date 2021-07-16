@@ -109,11 +109,13 @@ namespace SurfingBlogRt.Controllers
                     var claim = HttpContext.User.FindFirstValue(ClaimTypes.Name);
 
                     var user = context.Users.FirstOrDefault(user => user.Nickname == claim);
-                    if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
-                    {
-                        HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
-                    }
-                    //HttpContext.Session.SetString("Nickname", user.Nickname);
+                    if(user != null){
+                        if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
+                        {
+                            HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
+                        }
+                        //HttpContext.Session.SetString("Nickname", user.Nickname);
+                    }                  
                 }
             }          
             return View();
