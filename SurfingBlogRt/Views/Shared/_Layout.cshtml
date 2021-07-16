@@ -19,49 +19,51 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/img/logo.jpg" height="30" />
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="Index">Регистрация</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Войти</a>
-                            </li>
-                        </ul>
-                    </div>
-                }
-                else
-                {
-                    <div>
+    <header 
+            <nav class="navbar navbar-expand-sm mb-3 " style="background-color: #C7D2D9">
+                <div class="container row">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img height:100% src="~/img/logo.jpg" style="margin-left: inherit" />
+                    </a>
+                    <button class="navbar-toggler border-light" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <div class="navbar-collapse  col-sm-1"style="background-color: #C7D2D9;float:right">
+                            <ul class="navbar-nav flex-grow-1" >
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark border-0 order-secondary" asp-area="" asp-controller="Register" asp-action="Index">Регистрация</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark border-0 border-secondary" asp-area="" asp-controller="Login" asp-action="Login">Войти</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                    <div style="float:right">
                         @{
                             var userPhoto = SurfingBlogRt.Helpers.ImageHelper.GetUrl(
                             HttpContextAccessor.HttpContext.Session.GetString("Photo"));
                             var photo = userPhoto ?? "~/img/default_user.jpg";
                         }
-                        <img src="@Url.Content(photo)"  class="rounded-circle" height="50" width="50" />
+                        <img src="@Url.Content(photo)" class="rounded-circle" height="50" width="50" />
                         <label>@User.Identity.Name</label>
                     </div>
-                    <div>
+                    <div >
 
                         <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">
                             <img src="~/img/logoLogout.png" height="30" />
                         </a>
                     </div>
-                }
-            </div>
-        </nav>
+
+                    }
+                </div>
+            </nav>
+   
     </header>
     <div class="container">
         <main role="main" class="pb-3">

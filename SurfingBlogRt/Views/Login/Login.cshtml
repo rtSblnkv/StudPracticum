@@ -4,30 +4,37 @@
 }
 @model LoginViewModel
 
-<form style=" border: 1px solid black; background-color:cornsilk;border-radius: 10px" asp-controller="Login" asp-action="Login"
+<form class="card col-15" style=" border: 1px solid black;border-radius: 10px" asp-controller="Login" asp-action="Login"
       method="post" enctype="multipart/form-data">
-    <span style=" border: 1px solid black; background-color:grey;">Войдите в систему</span>
-    <div>
+    <span class="card-header border-bottom-secondary" style=" border: 1px solid black; background-color: #AABACC; ">
+    <h2>Войдите в систему</h2>
+    </span>
+    <div class="card-body" style="align-content: center">
         <div class="nicknameField">
             <label asp-for="Nickname"></label>
-            <input type="text" asp-for="Nickname" />
+            <input type="text" class="form-control" asp-for="Nickname" />
             <span asp-validation-for="Nickname"></span>
         </div>
         <div class="passwordField">
             <label asp-for="Password"></label>
-            <input type="password" asp-for="Password" />
+            <input type="password" class="form-control" asp-for="Password" />
             <span asp-validation-for="Password"></span>
         </div>
-        <div class="RememberMe">
-            <input type="checkbox" id="rememberMe" name="rememberMe" asp-for="RememberMe" />
-            <label asp-for="RememberMe"></label>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" asp-for="RememberMe">Запомнить меня
+            </label>
+            <span asp-validation-for="RememberMe" />
         </div>
         <div class="validation" asp-validation-summary="ModelOnly"></div>
-        <input type="submit" />
+
+        <label class="btn btn-primary" id="save_button" style="float: right; background-color: #AABACC; text-decoration-color: #EFEFEF; margin:auto ">
+            Войти<input type="submit" style="display: none;" id="save_button" name="save_button">
+        </label>
     </div>
 </form>
-<div>
-    <h6 style="text-decoration-color:grey"> Нет аккаунта? </h6>
-    <a class="nav-link text-dark" asp-area="" asp-controller="Register" asp-action="Index">Зарегистрироваться</a>
-</div>
+    <div class="header-footer row" style="margin:auto">
+        <h4>   Нет аккаунта? </h4>
+        <a class="nav-link text-black-100" asp-area="" asp-controller="Register" asp-action="Index">Зарегистрироваться</a>
+    </div>
 

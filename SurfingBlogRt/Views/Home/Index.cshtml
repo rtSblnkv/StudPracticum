@@ -5,65 +5,75 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <form style=" border: 1px solid black; background-color:cornsilk;" asp-controller="Home" asp-action="AddNewPost"
+    <form class="card border-secondary" asp-controller="Home" asp-action="AddNewPost"
           method="post" enctype="multipart/form-data">
-        <span style=" border: 1px solid black; background-color:grey;">Добавление новой записи</span>
-        <div>
-            <label>Введите текст</label>
-            <div>
-                <textarea asp-for="Text"> </textarea>
+        <span class="card-header"  style="border: 1px; width: 100%; border-color: grey; background-color: #DCE4E9; text-decoration-color: #6C757D ">Добавление новой записи</span>
+        <div class="card-body">
+            <label style="text-decoration-color: #CED4DA">Введите текст</label>
+            <div border: 1px ;border-color:grey;>
+                <textarea class="form-control" rows="8" asp-for="Text"> </textarea>
             </div>
-        </div>
-        <div>
-            <div>
+            <span style="text-decoration-color: #6C757D">Прикрепить изображение</span>
+            <div class="row">
+
                 <input id="imageDataName" disabled class="form-control col-3" />
-                <label class="btn btn-primary" style="background-color:">
+                <label class="btn btn-primary" style="background-color: #AABACC; text-decoration-color: #CED4DA ">
                     Обзор...<input type="file" style="display: none;" id="imageData"
                                    accept=".jpg,.jpeg,.png" name="imageData" onchange="onImageUpload()">
                 </label>
-            </div>       
-            <label class="btn btn-primary" id="save_button" style="float:right">
-                Отправить<input type="submit" style="display: none;" id="save_button" name="save_button" >
-            </label>
+            </div>
         </div>
+        <div class="card-footer">
+            <label class="btn btn-primary" id="save_button" style="float: right; background-color: #AABACC; text-decoration-color: #EFEFEF ">
+                Отправить<input type="submit" style="display: none;" id="save_button" name="save_button">
+            </label>
+        </div>              
     </form>
+    <div>
+
+
+
+    </div>
 }
-<div class="card">
+<div class="card  mt-3 mb-10">
     @foreach (News post in ViewBag.Posts)
     {
-    <div class="card-header bg-secondary" style=" border: 1px solid black; background-color:cornsilk;">
-        @if (post.Author.Photo.HasValue && Guid.Empty != post.Author.Photo.Value)
-        {
-            <img src="@Url.Content(SurfingBlogRt.Helpers.ImageHelper.GetUrl(post.Author.Photo))" class="rounded-circle" width="30" height="30" />
-        }
-        else
-        {
-            <img src="~/img/defaultProfile.jpg" width="30" height="30" style="border-radius: 50%" />
-        }
+    <div class="card  mt-3 mb-10 border-secondary ">
+        <div class="card-header" style=" background-color: #DCE4E9;">
+            @if (post.Author.Photo.HasValue && Guid.Empty != post.Author.Photo.Value)
+            {
+                <img src="@Url.Content(SurfingBlogRt.Helpers.ImageHelper.GetUrl(post.Author.Photo))" class="rounded-circle" width="30" height="30" />
+            }
+            else
+            {
+                <img src="~/img/defaultProfile.jpg" width="30" height="30" style="border-radius: 50%" />
+            }
 
-        <label>@post.Author.Nickname</label>
-        <div>
-            <label>@post.CreateDateLabel</label>
+            <label>@post.Author.Nickname</label>
+            <div>
+                <label>@post.CreateDateLabel</label>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                @if (!string.IsNullOrEmpty(post.Text))
+                {
+                    <label>@post.Text</label>
+                }
+            </div>
+            @if (post.Image.HasValue && Guid.Empty != post.Image.Value)
+            {
+                var photoUrl = SurfingBlogRt.Helpers.ImageHelper.GetUrl(post.Image);
+                @if (photoUrl != null)
+                {
+                    <img src="@Url.Content(photoUrl)" class="w-100 h-100" />
+                }
+            }
         </div>
 
     </div>
-        <div class="card-body">
-                <div class="card-text">
-                    @if (!string.IsNullOrEmpty(post.Text))
-                    {
-                        <label>@post.Text</label>
-                    }
-                </div>    
-                    @if (post.Image.HasValue && Guid.Empty != post.Image.Value)
-                    {
-                        var photoUrl = SurfingBlogRt.Helpers.ImageHelper.GetUrl(post.Image);
-                        @if (photoUrl != null)
-                        {
-                            <img src="@Url.Content(photoUrl)" class="w-100 h-100" />
-                        }
-                    }
-        </div>
-        
+    
     }
 </div>
 
