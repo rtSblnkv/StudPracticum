@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SurfingBlogRt.Models
 {
@@ -30,27 +27,10 @@ namespace SurfingBlogRt.Models
         [Display(Name = "Пароль*")]
         public string Password { get; set; }
 
-        [MaxLength(100, ErrorMessage = "Превышение лимита по символам (100)")]
-        [Display(Name = "Фамилия")]
-        public string LastName { get; set; }
+        [Required]
+        public int RoleId { get; set; }
 
-        [MaxLength(100, ErrorMessage = "Превышение лимита по символам (100)")]
-        [Display(Name = "Имя")]
-        public string FirstName { get; set; }
-
-        public Guid? Photo { get; set; }
-
-        [Display(Name = "Контактная информация")]
-        [MaxLength(500, ErrorMessage = "Превышение лимита по символам (500)")]
-        public string Contacts { get; set; }
-
-        [MaxLength(500, ErrorMessage = "Превышение лимита по символам (500)")]
-        [Display(Name = "О себе")]
-        public string AboutMe { get; set; }
-
-        [MaxLength(500, ErrorMessage = "Превышение лимита по символам (500)")]
-        [Display(Name = "Достижения")]
-        public string Achievements { get; set; }
+        [ForeignKey("RoleId")]
+        public virtual Role Role { get; set; }
     }
-
 }

@@ -34,15 +34,14 @@ namespace SurfingBlogRt.Controllers
             if (ModelState.IsValid)
             {
                 User user = await _dataContext.Users
+                    .Include(a => a.Role)
                     .FirstOrDefaultAsync(u => u.Nickname == model.Nickname && u.Password == model.Password);
+                    
                 if (user != null)
                 {
-                    await AuthenticateHelper.Authenticate(user.Id,model.Nickname, model.RememberMe, HttpContext); // аутентификация
-
-                    if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
-                    {
-                        HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
-                    }
+                    await AuthenticateHelper.Authenticate(user.Id,model.Nickname,user.Role.RoleName,model.RememberMe, HttpContext); 
+                    savephotoCookie(user);
+                    
                     HttpContext.Session.SetInt32("Id", user.Id);
 
                     return RedirectToAction("Index", "Home");
@@ -57,6 +56,14 @@ namespace SurfingBlogRt.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+        }
+
+        private void savephotoCookie(User user)
+        {
+            /*if (user.Photo.HasValue && Guid.Empty != user.Photo.Value)
+                    {
+                        HttpContext.Session.SetString("Photo", user.Photo.Value.ToString());
+                    }*/
         }
     }
 

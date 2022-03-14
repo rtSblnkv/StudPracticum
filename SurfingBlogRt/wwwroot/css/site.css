@@ -1,71 +1,127 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
+﻿
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
+}
+
+p {
+    text-align: justify;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+.base_info {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-top: 70px;
+    width: 80%;
+    margin-left: 10%;
+    background-color: #E8FCC2;
+    height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+img {
+    width: 50%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+table {
+    table-layout: fixed;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border: 3px solid #829399;
+}
+
+thead {
+    color: #E8FCC2;
+    text-shadow: 1px 1px 1px black;
+}
+
+    thead th {
+        background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.6));
+        border: 3px solid #545F66;
+    }
+
+        thead th:nth-child(1) {
+            width: 35%;
+        }
+
+        thead th:nth-child(2) {
+            width: 50%;
+        }
+
+        thead th:nth-child(3) {
+            width: 35%;
+        }
+
+
+th, td {
+    padding: 15px;
+}
+
+tbody td {
+    border: 3px solid #829399;
+    text-align: center;
+    background-color: #D0F4EA;
+}
+
+#toTop {
+    border: 1px solid black;
+    border-radius: 10px;
+    background: transparent;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 30px; /* отступ кнопки от нижнего края страницы*/
+    right: 30px;
+    cursor: pointer;
+    display: none;
+    font-size: 20px;
 }

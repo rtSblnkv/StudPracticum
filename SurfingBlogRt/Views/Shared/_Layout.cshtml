@@ -7,8 +7,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Блог о сёрфинге</title>
+    <title>@ViewData["Title"] - Блог о стажировках для студентов</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/footer.css">
+    <link rel="stylesheet" href="~/css/about.css">
+    <link rel="stylesheet" href="~/css/info_article.css">
+    <link rel="stylesheet" href="~/css/card_page.css">
     <link rel="stylesheet" href="~/css/site.css" />
     <style>
         .avatar {
@@ -19,66 +23,95 @@
     </style>
 </head>
 <body>
-    <header 
-            <nav class="navbar navbar-expand-sm mb-3 " style="background-color: #C7D2D9">
-                <div class="container row">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img height:100% src="~/img/logo.jpg" style="margin-left: inherit" />
-                    </a>
-                    <button class="navbar-toggler border-light" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <div class="navbar-collapse  col-sm-1"style="background-color: #C7D2D9;float:right">
-                            <ul class="navbar-nav flex-grow-1" >
+    <header>
+        <nav class="navbar navbar-expand-sm mb-3 teal lighten-2" style="background-color: #C7D2D9">
+            <div class="nav-wrapper">
+                <a class="brand-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    <h1 class="header_title">StudPracticum</h1>
+                </a>
+                <button class="navbar-toggler border-light" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button> 
+                <ul id="nav-mobile" class="navbar-nav flex-grow-1 right hide-on-med-and-down">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-0 order-secondary" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-0 order-secondary" asp-area="" asp-controller="About" asp-action="About">Что это?</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-0 order-secondary" asp-area="" asp-controller="Announcements" asp-action="Show" asp-route-type="Internship">Стажировки</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-0 order-secondary" asp-area="" asp-controller="Announcements" asp-action="Show" asp-route-type="Hackaton">Хакатоны</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border-0 order-secondary" asp-area="" asp-controller="Announcements" asp-action="Show" asp-route-type="Practicum">Практикумы</a>
+                            </li>
+                            @if (!User.Identity.IsAuthenticated)
+                            {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark border-0 order-secondary" asp-area="" asp-controller="Register" asp-action="Index">Регистрация</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark border-0 border-secondary" asp-area="" asp-controller="Login" asp-action="Login">Войти</a>
                                 </li>
-                            </ul>
-                        </div>
-                    }
-                    else
-                    {
-                    <div style="float:right">
-                        @{
-                            var userPhoto = SurfingBlogRt.Helpers.ImageHelper.GetUrl(
-                            HttpContextAccessor.HttpContext.Session.GetString("Photo"));
-                            var photo = userPhoto ?? "~/img/default_user.jpg";
-                        }
-                        <img src="@Url.Content(photo)" class="rounded-circle" height="50" width="50" />
-                        <label>@User.Identity.Name</label>
-                    </div>
-                    <div >
+                            }
+                            else
+                            {
+                                @if (User.IsInRole("Company"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark border-0 order-secondary" asp-area="" asp-controller="Announcements" asp-action="Create">Добавить</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <div style="float:right">
+                                        <label>@User.Identity.Name</label>
+                                    </div>
+                                    <div>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">
+                                            <img src="~/img/logoLogout.png" height="30" />
+                                        </a>
+                                    </div>
+                                </li>
+                            }
+                        </ul>                      
+            </div>
+</nav>
 
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Logout">
-                            <img src="~/img/logoLogout.png" height="30" />
-                        </a>
-                    </div>
-
-                    }
-                </div>
-            </nav>
-   
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
+    <div id="toTop"> ^ Наверх </div>
+
+    <footer class="page-footer teal lighten-2">
+        <div class="footer-copyright">
+            <div class="container">
+                <h1>Created by Artem Sabelnikov</h1>
+                    <div class="grey-text text-lighten-4 right">
+                        <h1>© 2022 Samara University</h1>
+                    </div>
+            </div>
+        </div>
+    </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/scroll.js"></script>
+    <script src="~/js/gallery.js"></script>
+    <script src="~/js/search.js"></script>
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover();
         });
     </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

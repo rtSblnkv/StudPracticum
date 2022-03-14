@@ -10,13 +10,14 @@ namespace SurfingBlogRt.Helpers
 {
     public class AuthenticateHelper
     {
-        public static async Task Authenticate(int userId,string userName, bool rememberMe, HttpContext httpContext)
+        public static async Task Authenticate(int userId,string userName, string role, bool rememberMe, HttpContext httpContext)
         {
             // создаем один claim
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
-                new Claim(ClaimTypes.Name, userName)
+                new Claim(ClaimTypes.Name, userName),
+                new Claim(ClaimTypes.Role,role)
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie",
@@ -29,7 +30,6 @@ namespace SurfingBlogRt.Helpers
             }
             else
             {
-
                 props.ExpiresUtc = DateTime.Now.AddMinutes(30);
             }
             // установка аутентификационных куки

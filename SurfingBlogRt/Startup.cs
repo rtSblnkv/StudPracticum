@@ -57,14 +57,11 @@ namespace SurfingBlogRt
 
             app.UseEndpoints(endpoints =>
             {
-            endpoints.MapControllerRoute(
-                name: "default1",
-                pattern: "CreateUser",
-                defaults: new { controller = "Register", action = "CreateUser" });
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");   
             });
+
         }
     }
 }
