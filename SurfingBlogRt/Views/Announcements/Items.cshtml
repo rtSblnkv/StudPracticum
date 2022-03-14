@@ -1,0 +1,14 @@
+﻿@model IEnumerable<SurfingBlogRt.Models.Announcement>
+
+@foreach (Announcement post in Model)
+{
+    <div class="block">
+        <div class="block_name">@post.Name</div>
+        <div class="block_specialization">@post.Theme</div>
+        <div class="block_location">@post.Location</div>
+        <div class="block_date">@post.StartDateLabel</div>
+        <div class="go_to_page">
+            <a asp-controller="Announcements" asp-action="Details" asp-route-id="@post.Id">Посмотреть</a>
+        </div>
+    </div>
+}

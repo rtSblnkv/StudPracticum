@@ -1,0 +1,70 @@
+﻿@model SurfingBlogRt.Models.Announcement
+
+@{
+    ViewData["Title"] = "Создание эвента";
+}
+
+<h1>Регистрация эвента</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+<form class="card col-10" style="border-radius: 10px" asp-action="Create">
+    <span class="card-header" style="width: 100%; border-color: grey; background-color: #DCE4E9; text-decoration-color: #6C757D ">
+        <h2>Добавление новой записи</h2>
+    </span>
+    <div class="card-body" style="align-content: center">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TypeId" class="control-label"></label>
+            <select asp-for="TypeId" class="form-control" asp-items="ViewBag.TypeIds"></select>
+            <span asp-validation-for="TypeId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Theme" class="control-label"></label>
+            <input asp-for="Theme" class="form-control" />
+            <span asp-validation-for="Theme" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Location" class="control-label"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Format" class="control-label"></label>
+            <input asp-for="Format" class="form-control" />
+            <span asp-validation-for="Format" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate" class="control-label"></label>
+            <input asp-for="StartDate" class="form-control" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DurationInDays" class="control-label"></label>
+            <input asp-for="DurationInDays" class="form-control" />
+            <span asp-validation-for="DurationInDays" class="text-danger"></span>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div сlass="card-footer border-top form-group">
+            <label class="btn btn-primary" id="save_button" style="float: right; background-color: #AABACC; text-decoration-color: #EFEFEF; margin:auto ">
+                Добавить<input type="submit" style="display: none;" id="save_button" name="save_button">
+            </label>
+        </div>
+    </div>
+</form>
+}
+else
+{
+    <h1>Упс...Ошибка аутентификации</h1>
+}
+

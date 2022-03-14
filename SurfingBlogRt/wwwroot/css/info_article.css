@@ -1,0 +1,59 @@
+
+.name{
+    font-size: xx-large;
+    font-weight: 700;
+}
+
+.specialization{
+    font-size: large;
+    font-weight: 600;
+}
+
+.location{
+    font-size: large;
+    font-weight: 500;
+}
+
+.org_type{
+    font-size: large;
+    font-weight: 800;
+}
+
+.date_from ,.date_to{
+    font-size: large;
+    font-weight: 700;
+}
+
+.description{
+    text-align:justify ;
+    padding-right: 5%;
+    font-size: 15px;
+    font-weight:400;
+}
+
+.filters {
+    padding: 40px;
+    margin: 10px;
+    display: block;
+}
+
+.button_find {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.filters select {
+    font-size: medium;
+    font-weight: 700;
+    padding: 20px;
+    border: solid 1px #E8FCC2;
+    margin-bottom: 20px;
+    outline: 0;
+    background: -webkit-gradient(linear, left top, left 25, from(#FFFFFF), color-stop(4%, #CAD9E3), to(#D0F4EA));
+    background: -moz-linear-gradient(top, #FFFFFF, #CAD9E3 1px, #FFFFFF 25px);
+    box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    -moz-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    -webkit-box-shadow: rgba(0,0,0, 0.1) 0px 0px 8px;
+    width: 300px;
+}
+
