@@ -22,13 +22,12 @@ namespace SurfingBlogRt.Controllers
         }
 
         // GET: Announcements
-        public async Task<IActionResult> Show(string type, int? id, string format, string location)
+        public async Task<IActionResult> Show(string type, int? id, string theme, string location)
         {
             var announcements = await 
-                getAnnouncementsFiltered(type,format,location)
+                getAnnouncementsFiltered(type,theme,location)
                 .ToListAsync();
             ViewData["Type"] = type;
-            //Клара Цетки
 
             int page = id ?? 0;
             if (IsAjaxRequest())
@@ -40,7 +39,7 @@ namespace SurfingBlogRt.Controllers
                 ViewData["Themes"] = getThemeFilterData(type);
                 ViewData["Locations"] = getLocationFilterData(type);
                 ViewData["Formats"] = getFormatFilterData(type);
-                return View(PageHelper.GetItemsPage(announcements, page));
+                return View(PageHelper.GetItemsPage(announcements, page)); 
             }           
         }
 
@@ -53,16 +52,16 @@ namespace SurfingBlogRt.Controllers
             return false;
         }
 
-        public IQueryable<Announcement> getAnnouncementsFiltered(string type, string format, string location)
+        public IQueryable<Announcement> getAnnouncementsFiltered(string type, string theme, string location)
         {
             IQueryable<Announcement> filteredAnnouncementsQuery =  _context.Announcements
                 .Include(a => a.Company)
                 .Include(a => a.Type)
                 .Where(announcement => announcement.Type.TypeName.Equals(type));
 
-            if(format != null)
+            if(theme != null)
             {
-                filteredAnnouncementsQuery = filteredAnnouncementsQuery.Where(a => a.Format.Equals(format));
+                filteredAnnouncementsQuery = filteredAnnouncementsQuery.Where(a => a.Theme.Equals(theme));
             }
 
             if(location != null)

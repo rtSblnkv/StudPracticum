@@ -6,7 +6,7 @@
 
 <div class="filters">
     <div class="input-field col s12">
-        <select id="filter_format" asp-items="ViewBag.Themes">
+        <select id="filter_theme" asp-items="ViewBag.Themes">
             <option selected value="Любой">Любой</option>
         </select>
         <label>Тема</label>
@@ -61,7 +61,7 @@
             loadItems();
         }
 
-        document.getElementById('filter_format').addEventListener('change', function () {
+        document.getElementById('filter_theme').addEventListener('change', function () {
             page = -1;
             reload();
         });
@@ -79,9 +79,9 @@
                 page++;
                 var url_ = '/Announcements/Show/' + page + '?type=@ViewBag.Type';
 
-                var format = $("#filter_format option:selected").text();
+                var format = $("#filter_theme option:selected").text();
                 if (format != "Любой") {
-                    url_ = url_ + '&format=' + format;
+                    url_ = url_ + '&theme=' + format;
                 }
 
                 var language = $("#filter_location option:selected").text();
